@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "soundcraft-guide": {
+      "command": "node",
+      "args": [
+        "mcp-server.mjs"
+      ]
+    }
+  }
+}

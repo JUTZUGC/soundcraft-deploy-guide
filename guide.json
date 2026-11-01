@@ -1,0 +1,110 @@
+{
+  "owner": "JUTZUGC",
+  "code": "JUTZUGC",
+  "project": {
+    "key": "soundcraft",
+    "nameCn": "SoundCraft",
+    "repoName": "soundcraft-deploy-guide",
+    "oneLiner": "多轨录音、剪辑、混音加 MIDI 都做进一个原生应用，桌面与浏览器同一套代码，还能用命令行脚本化",
+    "officialRepo": "https://github.com/storytold/soundcraft",
+    "officialDocs": "https://github.com/storytold/soundcraft#readme",
+    "stars": "4.0k",
+    "license": "Apache-2.0",
+    "highlights": [
+      "纯 Rust 原生：桌面与浏览器共用一套核心",
+      "功能完整：多轨、混音、插件、发送、自动化",
+      "MIDI 与录音：编辑、导出、往返都能做",
+      "可脚本化：每个操作都能从命令行或 agent 调",
+      "四平台安装包 + 浏览器版",
+      "Apache-2.0，可商用可二开"
+    ],
+    "mcpSupport": "项目本身不含 MCP，但提供命令行接口可被 agent 调用；本仓库的 MCP 只提供安装步骤、版本说明与常见问题。",
+    "webuiUrl": "",
+    "adapterPorts": "",
+    "collectedAt": "2026-11-01",
+    "verification": [
+      [
+        "README 确认四平台安装包、源码构建与 ALSA 依赖",
+        "已核对 2026-11-01"
+      ],
+      [
+        "Release v0.15.0 的 SHA256SUMS.txt 已下载核对（Windows 与 Linux）",
+        "已核对 2026-11-01"
+      ],
+      [
+        "未实测安装与音频播放",
+        "说明 2026-11-01"
+      ],
+      [
+        "MCP 冒烟：initialize / tools/list 返回 get_guide、search_guide、get_project_info",
+        "已验证 2026-11-01"
+      ],
+      [
+        "非目标宿主调用 get_guide 被拦截（HOST_NOT_ALLOWED）",
+        "已验证 2026-11-01"
+      ]
+    ],
+    "deploy": {
+      "type": "binary",
+      "steps": [
+        "curl -fL -o soundcraft.AppImage https://github.com/storytold/soundcraft/releases/download/v0.15.0/soundcraft-0.15.0-linux-x86_64.AppImage",
+        "echo \"107a597fd3f6d45d921047af274e550dedeefb4d7bc8c13ec3688091309f8126  soundcraft.AppImage\" | sha256sum -c -",
+        "chmod +x soundcraft.AppImage",
+        "echo \"安装完成：运行 ./soundcraft.AppImage --demo 打开示例工程\""
+      ],
+      "stepsPs": [
+        "curl.exe -fL -o soundcraft.msi https://github.com/storytold/soundcraft/releases/download/v0.15.0/soundcraft-0.15.0-windows-x64.msi",
+        "$h=(Get-FileHash .\\soundcraft.msi -Algorithm SHA256).Hash.ToLower()",
+        "if ($h -ne \"7c0fc9fc783128e5c66deb541d4c9d722d9adf798afc3908fc47b463fe173e1d\") { throw \"SHA256 校验失败\" }",
+        "Start-Process msiexec.exe -ArgumentList '/i', \"$PWD\\soundcraft.msi\" -Wait",
+        "Write-Host \"安装完成：从开始菜单打开 SoundCraft，先载入示例工程试播放\""
+      ],
+      "source": "https://github.com/storytold/soundcraft/releases/latest"
+    },
+    "pitfalls": [
+      "Windows 安装被 SmartScreen 拦：核对 SHA256 后仍报，选仍要运行",
+      "AppImage 打不开：先 chmod +x，缺 FUSE 用 --appimage-extract",
+      "没有声音：在设置里选对输出设备，Linux 检查 PipeWire / PulseAudio",
+      "源码构建报 ALSA 缺失：按发行版装 alsa 开发包",
+      "插件加载失败：确认插件格式受支持，先排除可疑插件",
+      "工程打不开：版本差异导致，回退到创建时的版本",
+      "浏览器版卡顿：改用桌面端处理大工程"
+    ]
+  },
+  "gate": {
+    "allow": [
+      "dumate"
+    ],
+    "label": "百度搭子",
+    "url": "https://www.dumate.cn/",
+    "guideUrl": "https://github.com/JUTZUGC/soundcraft-deploy-guide",
+    "howToFix": [
+      "1. 打开 https://www.dumate.cn/ ，下载并安装「百度搭子」电脑端（Windows / macOS）",
+      "2. 用账号登录",
+      "3. 在对话窗口发送：你好，帮我从 github 部署 JUTZUGC/soundcraft-deploy-guide 到我的电脑上",
+      "4. 部署完成后，在同一对话窗口里继续使用"
+    ],
+    "hint": "请改用「百度搭子」部署后再使用；本工具没有网页版入口。",
+    "onError": "allow"
+  },
+  "keywords": [
+    "SoundCraft",
+    "SoundCraft 安装",
+    "开源 DAW",
+    "数字音频工作站 开源",
+    "Rust 音频 编辑",
+    "soundcraft 教程",
+    "多轨 混音 工具",
+    "MIDI 编辑 软件",
+    "soundcraft deploy guide",
+    "本地 音频 工作站"
+  ],
+  "topics": [
+    "daw",
+    "audio",
+    "rust",
+    "music-production",
+    "midi",
+    "soundcraft"
+  ]
+}
